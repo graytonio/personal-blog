@@ -1,47 +1,79 @@
 ---
-title: The Advantages & Disadvantages of Working from Home
-excerpt: In recent years, the way we work has undergone a significant transformation, largely due to advancements in technology and changing attitudes toward work-life balance. One of the most notable changes has been the rise of remote work, allowing employees to work from the comfort of their own homes.
-publishDate: 'Aug 5 2023'
+title: Introduction to Golang Pointers
+excerpt: Whether you started with C or Python pointers in Golang can be tricky at the start. This guide will be a solid foundation to help you learn go.
+publishDate: 'Oct 9 2023'
+isFeatured: true
 tags:
   - Guide
+  - Golang
 seo:
   image:
     src: '/post-1.jpg'
     alt: A person standing at the window
 ---
 
-![A person standing at the window](/post-1.jpg)
+Even if you are familiar with a language that has pointers like C pointers in go may still give you some trouble. This short guide will assume you have no previous knowledge of pointers to give you a ground up understanding of what they are and how they are used in golang.
 
-**Note:** This post was created using Chat GPT to demonstrate the features of the _[Dante Astro.js theme functionality](https://justgoodui.com/astro-themes/dante/)_.
+## What is a pointer
 
-In recent years, the way we work has undergone a significant transformation, largely due to advancements in technology and changing attitudes toward work-life balance. One of the most notable changes has been the rise of remote work, allowing employees to work from the comfort of their own homes. While this shift has brought about many benefits, it has also introduced its fair share of challenges. Let's explore the advantages and disadvantages of working from home.
+In programming one of the most common things you do is create variables. When you do this the computer is reserving some portion of memory for the data you want to store. For example lets say I have a struct in go and create an variable of that type:
 
-## Advantages of Working from Home
+```golang
+type Foo struct {
+  ID int Bar string
+}
 
-1. **Flexibility:** One of the most significant advantages of remote work is the flexibility it offers. Employees can often set their own hours, which can be particularly beneficial for those with family responsibilities or other commitments.
+var MyData = Foo{ ID: 23, Bar: "Hello" }
+```
 
-2. **Reduced Commute:** Eliminating the daily commute not only saves time but also reduces stress and expenses associated with transportation. This can lead to better mental health and increased job satisfaction.
+Then there is a part of memory that now has that data stored in it.
+![Memory Screen Shot 1](/golang-pointers-0.svg)
 
-3. **Cost Savings:** Working from home can result in significant cost savings. Employees can save money on transportation, work attire, and daily meals, which can have a positive impact on their overall financial well-being.
+Now lets say I have a function that can accept a `Foo` and update its data.
 
-4. **Increased Productivity:** Many people find that they are more productive when working from home. The absence of office distractions and the ability to create a personalized work environment can lead to improved focus and efficiency.
+```golang
+func FooFunction(data Foo) {
+  data.Bar = "World"
+}
+FooFunction(MyData)
+```
 
-5. **Work-Life Balance:** Remote work allows for better work-life balance. Employees can better manage their personal and professional lives, leading to reduced burnout and increased job satisfaction.
+When we do this go passes the data to the function by making a copy of it and giving that copy to the function. So for example in this case our memory would look more like this.
 
-> Your ability to discipline yourself to set clear goals and then work toward them every day will do more to guarantee your success than any other single factor.
+![Memory Screen Shot 2](/golang-pointers-1.svg)
 
-## Disadvantages of Working from Home
+So when our function mutates the struct we instead get this version of the memory where the function modifies its copy instead of the original like we wanted.
 
-1. **Isolation:** Remote work can be lonely. The absence of coworkers and face-to-face interaction can lead to feelings of isolation and loneliness, which may negatively impact mental health.
+![Memory Screen Shot 3](/golang-pointers-2.svg)
 
-2. **Difficulty in Communication:** Effective communication can be a challenge when working remotely. Misunderstandings, lack of clear communication, and delayed responses can hinder teamwork and collaboration.
+This is were pointers are helpful. If we change our function to instead take in a pointer to our strut.
 
-3. **Work-Life Boundaries:** While remote work can improve work-life balance, it can also blur the lines between work and personal life. It can be challenging to establish clear boundaries, leading to overwork and burnout.
+```golang
+func FooFunction(data Foo) {
+  data.Bar = "World"
+}
+FooFunction(&MyData)
+```
 
-4. **Technology Issues:** Technical problems, such as internet connectivity issues or software glitches, can disrupt work and cause frustration.
+Then when we pass our data to the function we will instead get a memory map that looks more like this.
 
-5. **Distractions:** Working from home can be riddled with distractions, ranging from household chores to noisy neighbors. Maintaining focus can be a constant struggle for some.
+![Memory Screen Shot 4](/golang-pointers-3.svg)
 
-6. **Career Growth:** Some employees may feel that working remotely limits their opportunities for career advancement, as they may have less visibility within the organization.
+We have a pointer to the data which means when our function updates the data it will show in our original variable.
 
-While it offers flexibility, cost savings, and improved work-life balance, it can also lead to isolation, communication challenges, and distractions. The key to successful remote work lies in finding a balance that suits individual preferences and addressing potential drawbacks through effective communication, time management, and self-discipline. As remote work continues to evolve, understanding and adapting to these advantages and disadvantages will be crucial for both employees and employers.
+![Memory Screen Shot 5](/golang-pointers-4.svg)
+
+That is the basics of pointers for golang and if all you needed to know was how to use them you can stop reading here. However if you want to look a little deeper or if you came from a language like C there is one more detail you may find intersting. Remember that I said anything that you pass to a function in go is a duplicate of its parameters. So the memory actually looks like this.
+
+![Memory Screen Shot 6](/golang-pointers-5.svg)
+
+It may seem like a small difference but it means that a go function cannot reassign pointers. Which means a function like this.
+
+```golang
+func ReassignPointer(data *Foo, newData *Foo) {
+  data = newData
+}
+ReassignPointer(&MyData, &SomeOtherData)
+```
+
+Would not work as intended because you are not reassigning the original pointer but instead the duplicate of the pointer. A small detail that may save you a few hours of debugging. I hope you enjoyed this quick walkthrough of go pointers and good luck on your go journey.
