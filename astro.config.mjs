@@ -11,7 +11,7 @@ export default defineConfig({
             enabled: true
         }
     }),
-    output: 'server',
+    output: 'static',
     site: 'https://graytonward.com',
     integrations: [
         mdx(),
