@@ -8,8 +8,8 @@ tags:
   - Golang
 seo:
   image:
-    src: '/post-1.jpg'
-    alt: A person standing at the window
+    src: '/golang-pointers-seo.webp'
+    alt: Representation of references
 ---
 
 Even if you are familiar with a language that has pointers like C pointers in go may still give you some trouble. This short guide will assume you have no previous knowledge of pointers to give you a ground up understanding of what they are and how they are used in golang.
