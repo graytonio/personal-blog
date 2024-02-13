@@ -14,6 +14,7 @@ const seoSchema = z.object({
 
 const blog = defineCollection({
     schema: z.object({
+        published: z.boolean().optional().default(true),
         title: z.string(),
         excerpt: z.string().optional(),
         publishDate: z.coerce.date(),
