@@ -1,7 +1,6 @@
 ---
 title: The Illusion of Clean Code
 excerpt: Clean code is a hotly debated topic in developer circles however I think most of this discourse is pointless. There is no such thing as a universal "clean code"
-published: false
 publishDate: 'Jan 24 2024'
 isFeatured: true
 tags:
