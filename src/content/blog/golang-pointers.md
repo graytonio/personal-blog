@@ -18,7 +18,7 @@ Even if you are familiar with a language that has pointers like C pointers in go
 
 In programming one of the most common things you do is create variables. When you do this the computer is reserving some portion of memory for the data you want to store. For example lets say I have a struct in go and create an variable of that type:
 
-```golang
+```go
 type Foo struct {
   ID int Bar string
 }
@@ -31,7 +31,7 @@ Then there is a part of memory that now has that data stored in it.
 
 Now lets say I have a function that can accept a `Foo` and update its data.
 
-```golang
+```go
 func FooFunction(data Foo) {
   data.Bar = "World"
 }
@@ -48,7 +48,7 @@ So when our function mutates the struct we instead get this version of the memor
 
 This is were pointers are helpful. If we change our function to instead take in a pointer to our strut.
 
-```golang
+```go
 func FooFunction(data Foo) {
   data.Bar = "World"
 }
@@ -69,7 +69,7 @@ That is the basics of pointers for golang and if all you needed to know was how 
 
 It may seem like a small difference but it means that a go function cannot reassign pointers. Which means a function like this.
 
-```golang
+```go
 func ReassignPointer(data *Foo, newData *Foo) {
   data = newData
 }
