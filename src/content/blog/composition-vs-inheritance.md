@@ -288,3 +288,5 @@ class MyImageAppUI:
 ```
 
 Hopefully this example has at least given you a good base to understand composition and inheritance and I would encourage you to try both methods in your next project and determine which one makes it easier to maintain and update down the line. In my experience any project that will have it's requirements change overtime will always benefit from being build with composition over inheritance. I'll have full code examples available on my github if you want to see the fully built out code bases to compare and contrast.
+
+Code Examples: [Github Repo](https://github.com/graytonio/blog-code/tree/main/inheritance-vs-composition)
