@@ -90,10 +90,10 @@ const siteConfig: SiteConfig = {
     hero: {
         title: 'I like to build things',
         text: "I'm **Grayton Ward**, a platform tech lead at JFrog, helping craft the next generation of our internal platform tools. In my spare time I love learning about new technologies and creating open source projects that solve problems I have. You can keep up with my work and my learning with the blog posts here, my <a href='https://github.com/graytonio'>Github</a>, or by following me on <a href='https://twitch.tv/graytonio'>Twitch</a> where I do live coding and learning streams twice a week.",
-        image: {
-            src: '/hero.jpeg',
-            alt: 'A person sitting at a desk in front of a computer'
-        },
+        // image: {
+        //     src: '/hero.jpeg',
+        //     alt: 'A person sitting at a desk in front of a computer'
+        // },
         actions: [
             {
                 text: 'Get in Touch',
