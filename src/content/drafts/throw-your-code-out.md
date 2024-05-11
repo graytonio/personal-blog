@@ -24,7 +24,7 @@ When you are just throwing code at the wall to try and solve a problem you tend 
 
 For example you may be writing a cli tool that pulls in data from an api and does some parsing on it. At first you throught it would be taking the data from the api and just printing some strings to the console so you had a data fetch function and a print function.
 
-```golang
+```go
 func main() {
   data, err := fetchAPIData()
   handleError(err)
@@ -43,7 +43,7 @@ func printData(data MyAPIData) {
 
 But as your went you realized you needed to do some manipulation before you printed so you added some logic in your printing function to do that manipulation.
 
-```golang
+```go
 func main() {
   data, err := fetchAPIData()
   handleError(err)
@@ -64,7 +64,7 @@ func printData(data MyAPIData) {
 
 And then you realized you actually wanted some more information from another endpoint so you made your data fetching function do some more things really quick and shoved it all together into your print function.
 
-```golang
+```go
 func main() {
   data, extraData, err := fetchAPIData()
   handleError(err)
@@ -89,7 +89,7 @@ func printData(data MyAPIData, extraData ExtraData) {
 
 This is a simple example but I'm sure you can see the direction this is going as my assumptions change while I'm figuring out the problem I try to squeeze it in wherever I can because I'm more focused on solving the problem then making a good "production ready" tool. But if I throw it out and start again knowing I need the extra data and knowing theres some data manipulation I can make some smarter descisions about how my code is broken up.
 
-```golang
+```go
 func main() {
   data, err := fetchAPIData()
   handleError(err)
@@ -122,7 +122,7 @@ func printResults(data TransformedData) {
 
 In this new refactored form there are a couple of key differences. Each function has one clear output and simple inputs. This means its much easier to test each component since the surface area is smaller and makes it easier to identify where a problem might be. Let's say down the line I wanted to have options for how the data is transformed into the transformed data. With this new structure its very easy to refactor the main function to have a selection of transform functions instead of nesting it into the print function.
 
-```golang
+```go
 func main() {
   //...
 
