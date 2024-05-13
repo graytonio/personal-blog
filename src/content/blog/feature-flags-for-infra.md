@@ -8,7 +8,7 @@ tags:
   - Kubernetes
 seo:
   image:
-    src: '/golang-pointers-seo.webp'
+    src: '/feature-flags-for-infra/seo-image.webp'
     alt: Representation of references
 ---
 
