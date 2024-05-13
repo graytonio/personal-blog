@@ -1,8 +1,8 @@
 ---
 title: Feature Flags In GitOps
 excerpt: Feature flags have become a very popular way to control how your application behaves in real time without having to manually go update a config file or change an environment variable. Why has this same convenince not come to the infrastructure layer?
-publishDate: 'May 6 2024'
-isFeatured: false
+publishDate: 'May 13 2024'
+isFeatured: true
 tags:
   - Project
   - Kubernetes
