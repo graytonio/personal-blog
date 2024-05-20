@@ -6,6 +6,7 @@ isFeatured: true
 tags:
   - Project
   - Kubernetes
+  - FlagOps
 seo:
   image:
     src: '/feature-flags-for-infra/seo-image.webp'
