@@ -22,10 +22,11 @@ To follow this guide you will need:
 1. A kubernetes cluster - Can be kind, bare metal, or hosted on a cloud provider.
 2. ArgoCD deployed - Follow this [guide](https://argo-cd.readthedocs.io/en/stable/getting_started/)
 3. A [Flagsmith](https://www.flagsmith.com/) Account - We will use this to create and manage our feature flags.
+4. Basic knowledge of kubernetes and ArgoCD
 
 ## Setting up the ArgoCD Plugins
 
-The first thing we need to do is install the FlagOps ArgoCD Plugin. The manifests for the installation are available in the [repo](https://github.com/graytonio/flagops/tree/main/manifests)
+The first thing we need to do is install the FlagOps ArgoCD Plugin. The plugin will take our templates from our repository, inject our feature flags as template variables, and then output the resulting files to be applied to the cluster. The manifests for the installation are available in the [repo](https://github.com/graytonio/flagops/tree/main/manifests).
 
 Before we apply the manifests we will need to modify the environment configuration under `cmp-plugin.yaml`.
 
@@ -146,13 +147,35 @@ And the second flag `demo_app` does not need a default value.
 
 ## Deploying the app
 
-Now that all the setup is done we can finally connect ArgoCD to our GitOps repository. We will add an application and configure it to pull the manifests from our repository.
+Now that all the setup is done we can finally connect ArgoCD to our GitOps repository. We will add an application and configure it to pull the manifests from our repository by clicking on the `New App` button in our dashboard. For this example we will use the [example](https://github.com/graytonio/flagops-argocd-example) repo which deploys 3 nginx web servers with some associated metadata to show off how we can take advantage of FlagOps.
 
-TODO Add image
+You can copy and paste the yaml here to add the FlagOps demo repository as an application in ArgoCD.
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flagops
+spec:
+  destination:
+    name: ''
+    namespace: flagops
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: root/
+    repoURL: 'https://github.com/graytonio/flagops-argocd-example.git'
+    targetRevision: HEAD
+  sources: []
+  project: demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+```
 
 You should see that the root application is created along with the three deployments of NGINX for each of our configured "clusters".
 
-TODO Add image
+![argo-dashboard](/flagops-getting-started/argo-dashboard.png)
 
 ## Controlling Features
 
@@ -162,7 +185,7 @@ Now that it is deployed we can go back to our dashboard and start updating some 
 
 Once we do this we can wait for ArgoCD to automatically Hard Refresh the app or we can manually hard refresh it to apply the changes now. And once the app refreshes we should see that each application now has 3 replicas of NGINX.
 
-TODO Add image
+![feature-update](/flagops-getting-started/feature-update.png)
 
 Now we want to change only one application's values without changing them all. We can do this by going to our identities page and choosing one of our applications to update. You'll see each identity matches up with an application and has some traits that help us get some information about the deployment.
 
@@ -176,7 +199,7 @@ We can select the `nginx_replicas` again and update the value for this applicati
 
 After saving and refreshing we should see again that only the application we picked was scaled up to 5 replicas.
 
-TODO Add images
+![user-update](/flagops-getting-started/user-update.png)
 
 This is all great but the real power is when we start applying rules with Segments. Segments are a tool in Flagsmith that allows you to override feature flag values based on rules about the traits we saw earlier. We won't be going too far in depth about segments right now but if you want to learn more you can read the [documentation](https://docs.flagsmith.com/basic-features/segments).
 
@@ -188,9 +211,11 @@ Once it has been created we can update our production overrides to disable the `
 
 ![update segment feature](/flagops-getting-started/update-seg-feature.png)
 
-Once again after saving and refreshing, you can see that the application in the region we specified does not have the init container to clone the demo app.
+Once again after saving and refreshing, you can see that the application in the region we specified does not have the repo sync container like the other ones do.
 
-TODO Add images
+![demo-on](/flagops-getting-started/demo-on.png)
+
+![demo-off](/flagops-getting-started/demo-off.png)
 
 ## Next Steps
 
