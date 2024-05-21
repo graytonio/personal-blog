@@ -1,6 +1,6 @@
 ---
 title: FlagOps
-desription: Integrating feature flags into GitOps and IaC workflows
+description: Integrating feature flags into GitOps and IaC workflows
 publishDate: 'May 17 2024'
 isFeatured: true
 seo:

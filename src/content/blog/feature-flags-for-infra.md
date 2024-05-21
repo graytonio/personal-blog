@@ -40,3 +40,5 @@ So on my laptop, the environment is development and my actual cluster is product
 This is a pretty simple example of using this tool and it's still in early development as a side project but I can see really big uses for this. Especially when paired with ArgoCD it can be used to support an entire platform for deploying applications where all a developer has to do is add their app's image to a list and set some flags in the portal and they can fully control the deployment lifecycle of their application.
 
 I'm really excited about how this tool can be used and what other use cases it can be applied to so if this sounds interesting and you want to contribute please [check out the project](https://github.com/graytonio/flagops/) on GitHub, try out the tool and open some feature requests or bug reports.
+
+Update: There's now a getting started guide to help get FlagOps up and running [here](https://www.graytonward.com/blog/hello-world-for-flagops)
