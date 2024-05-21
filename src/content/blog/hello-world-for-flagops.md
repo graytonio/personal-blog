@@ -2,7 +2,7 @@
 title: Getting Started with FlagOps
 excerpt: A getting started guide to instrumenting your GitOps projects with feature flags.
 publishDate: 'May 19 2024'
-isFeatured: true
+isFeatured: false
 tags:
   - Project
   - Kubernetes
