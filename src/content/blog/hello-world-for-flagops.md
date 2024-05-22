@@ -46,7 +46,7 @@ data:
         apiKey: <api-key>
 ```
 
-Here we will replace the `<api-key>` with the Flagsmith client sdk keys which can be found in the dashboard under `SKD Keys`.
+Here we will replace the `<api-key>` with the Flagsmith client sdk keys which can be found in the dashboard under `SDK Keys`.
 
 ![sdk-keys](/flagops-getting-started/sdk-keys.png)
 
